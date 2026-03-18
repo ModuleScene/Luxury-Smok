@@ -239,6 +239,7 @@
             gap: 1rem;
         }
 
+        /* ✅ FIX PARA QUE <a> SE VEA COMO BOTÓN */
         .btn {
             flex: 1;
             padding: 1rem;
@@ -250,6 +251,14 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .btn:hover {
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -475,8 +484,8 @@
                         <span class="spec">Sostenible</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/LifePod/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/LifePod/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -499,8 +508,8 @@
                         <span class="spec">900mAh</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/Luxury-Oxbar/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/Luxury-Oxbar/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -523,8 +532,8 @@
                         <span class="spec">100W Max</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/Luxury-Voopo/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/Luxury-Voopo/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -546,8 +555,8 @@
                         <span class="spec">Premium</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/Luxury-STLTH/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/Luxury-STLTH/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -570,8 +579,8 @@
                         <span class="spec">500mAh</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/Luxury-ClickMate/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/Luxury-ClickMate/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -594,8 +603,8 @@
                         <span class="spec">Mesh Coil</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/Luxury-Nastyfx10/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/Luxury-Nastyfx10/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -618,8 +627,8 @@
                         <span class="spec">Display Digital</span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary">Comprar Ahora</button>
-                        <button class="btn btn-secondary">Ver Detalles</button>
+                        <a href="https://modulescene.github.io/Luxury-NastyJuice/" class="btn btn-primary" target="_blank">Comprar Ahora</a>
+                        <a href="https://modulescene.github.io/Luxury-NastyJuice/" class="btn btn-secondary" target="_blank">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -648,13 +657,11 @@
                 const target = document.querySelector(targetId);
                 
                 if (target) {
-                    // Smooth scroll to target
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
                     
-                    // Add highlight effect to product cards
                     if (targetId !== '#inicio' && targetId !== '#productos') {
                         setTimeout(() => {
                             target.classList.add('highlight-card');
