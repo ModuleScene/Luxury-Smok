@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Vape Collection - Premium Vape Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #d4af37;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5c2 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: #000;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            color: #fff;
+            border: 1px solid #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        .stats-number {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stats-label {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Products Grid - 2 Columns Always */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #d4af37;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(212, 175, 55, 0.2), transparent);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-image-placeholder {
+            font-size: 6rem;
+            color: #d4af37;
+            opacity: 0.5;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #d4af37, #f4e5c2);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .product-description {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .product-specs {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .spec {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #d4af37;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-secondary:hover {
+            background: #d4af37;
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            border-top: 2px solid #d4af37;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-text {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #d4af37;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+
+        /* Highlight animation for scroll to */
+        @keyframes highlight {
+            0%, 100% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.8), 0 0 100px rgba(212, 175, 55, 0.4); }
+        }
+
+        .highlight-card {
+            animation: highlight 2s ease-in-out;
+            border-color: #d4af37;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .product-image {
+                height: 250px;
+            }
+
+            .product-name {
+                font-size: 1.2rem;
+            }
+
+            .product-description {
+                font-size: 0.85rem;
+            }
+
+            .spec {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .btn {
+                padding: 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .product-badge {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-image {
+                height: 200px;
+            }
+
+            .product-info {
+                padding: 1rem;
+            }
+
+            .product-name {
+                font-size: 1.1rem;
+            }
+
+            .stats-number {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* LED Effect */
+        .led-strip {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            box-shadow: 0 0 20px #d4af37;
+            margin: 2rem 0;
+        }
+
+        /* Image Loading */
+        .product-image img {
+            opacity: 0;
+            animation: imageFadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes imageFadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header id="inicio">
+        <h1>✨ Luxury Vape Collection</h1>
+        <p class="subtitle">Premium Vape Devices & Accessories</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#nasty">Nasty</a></li>
+            <li><a href="#oxbar">OXBAR</a></li>
+            <li><a href="#voopoo">VOPOO</a></li>
+            <li><a href="#stlh">STLH</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="stats">
+            <div>
+                <span class="stats-number">🔥 2,847 Likes</span>
+                <span style="color: #444; margin: 0 1rem;">•</span>
+                <span class="stats-number">👁️ 15,321 Views</span>
+            </div>
+        </div>
+
+        <div class="led-strip"></div>
+
+        <h2 style="text-align: center; margin-bottom: 3rem; color: #d4af37; font-size: 2rem;">NUESTROS PRODUCTOS PREMIUM</h2>
+
+        <div class="products-grid" id="productos">
+            <!-- LIFE POD ECO II -->
+            <div class="product-card">
+                <div class="product-badge">ECO FRIENDLY</div>
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/kgL7XV6p/Chat-GPT-Image-17-mar-2026-03-48-26-a-m.png" 
+                         alt="Life Pod Eco II" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>🌱</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">LIFE POD ECO II</h3>
+                    <p class="product-description">Opción ecológica y sostenible sin comprometer la calidad del vapeo.</p>
+                    <div class="product-specs">
+                        <span class="spec">Eco-Friendly</span>
+                        <span class="spec">Reciclable</span>
+                        <span class="spec">Sostenible</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OXBAR -->
+            <div class="product-card" id="oxbar">
+                <div class="product-badge">PREMIUM</div>
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/RCP5Z32y/Chat-GPT-Image-17-mar-2026-03-49-46-a-m.png" 
+                         alt="OXBAR Premium Vape" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>⭐</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">OXBAR</h3>
+                    <p class="product-description">Marca global reconocida por sabores intensos y diseño ultra-moderno.</p>
+                    <div class="product-specs">
+                        <span class="spec">36K+ Puffs</span>
+                        <span class="spec">Pantalla 3D</span>
+                        <span class="spec">900mAh</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VOPOO -->
+            <div class="product-card" id="voopoo">
+                <div class="product-badge">TECHNOLOGY</div>
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/RFdrfqhv/Chat-GPT-Image-17-mar-2026-03-55-02-a-m.png" 
+                         alt="VOPOO Vape Device" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>⚙️</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">VOPOO</h3>
+                    <p class="product-description">Tecnología GENE chip para disparo rápido y control preciso de temperatura.</p>
+                    <div class="product-specs">
+                        <span class="spec">GENE Chip</span>
+                        <span class="spec">PnP X Platform</span>
+                        <span class="spec">100W Max</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLTHL -->
+            <div class="product-card" id="stlh">
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/13qLBvXq/Chat-GPT-Image-17-mar-2026-03-59-57-a-m.png" 
+                         alt="SLTHL Vape Device" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>🔥</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">SLTHL</h3>
+                    <p class="product-description">Diseño minimalista y elegante con rendimiento superior.</p>
+                    <div class="product-specs">
+                        <span class="spec">Slim Design</span>
+                        <span class="spec">Portátil</span>
+                        <span class="spec">Premium</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLICKMATE -->
+            <div class="product-card">
+                <div class="product-badge">NUEVO</div>
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/4NMDpDfG/Chat-GPT-Image-17-mar-2026-04-04-17.png" 
+                         alt="CLICKMATE" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>🎯</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">CLICKMATE</h3>
+                    <p class="product-description">Sistema innovador de pods con mecanismo de clic fácil y rápido.</p>
+                    <div class="product-specs">
+                        <span class="spec">Click System</span>
+                        <span class="spec">Compacto</span>
+                        <span class="spec">500mAh</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nasty FX10i KIT -->
+            <div class="product-card" id="nasty">
+                <div class="product-badge">BEST SELLER</div>
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/SKpNf2SM/Chat-GPT-Image-17-mar-2026-04-10-49.png" 
+                         alt="Nasty FX10i KIT" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>💨</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Nasty FX10i KIT</h3>
+                    <p class="product-description">Sistema de pods recargable con batería de larga duración y sabor excepcional.</p>
+                    <div class="product-specs">
+                        <span class="spec">10,000 Puffs</span>
+                        <span class="spec">Recargable</span>
+                        <span class="spec">Mesh Coil</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nasty PX15Ki -->
+            <div class="product-card">
+                <div class="product-badge">15K PUFFS</div>
+                <div class="product-image">
+                    <img src="https://i.postimg.cc/T35p9vnJ/Chat-GPT-Image-17-mar-2026-04-09-56.png" 
+                         alt="Nasty PX15Ki" 
+                         loading="lazy"
+                         onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>⚡</div>'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Nasty PX15Ki</h3>
+                    <p class="product-description">Dispositivo desechable de próxima generación con 15,000 caladas de sabor intenso.</p>
+                    <div class="product-specs">
+                        <span class="spec">15,000 Puffs</span>
+                        <span class="spec">20ml</span>
+                        <span class="spec">Display Digital</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">Comprar Ahora</button>
+                        <button class="btn btn-secondary">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="led-strip"></div>
+    </div>
+
+    <footer>
+        <p class="footer-text">© 2026 Luxury Vape Collection. Todos los derechos reservados.</p>
+        <p class="footer-text">⚠️ Prohibida la venta a menores de 18 años</p>
+        <div class="social-links">
+            <a href="#">📧 Email</a>
+            <a href="#">📱 WhatsApp</a>
+            <a href="#">📘 Facebook</a>
+            <a href="#">📸 Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll with highlight effect
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                
+                if (target) {
+                    // Smooth scroll to target
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Add highlight effect to product cards
+                    if (targetId !== '#inicio' && targetId !== '#productos') {
+                        setTimeout(() => {
+                            target.classList.add('highlight-card');
+                            setTimeout(() => {
+                                target.classList.remove('highlight-card');
+                            }, 2000);
+                        }, 500);
+                    }
+                }
+            });
+        });
+
+        // Button click effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Image load animation
+        document.querySelectorAll('.product-image img').forEach(img => {
+            img.onload = function() {
+                this.style.opacity = '1';
+            };
+        });
+
+        // Lazy load intersection observer
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.product-image img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>
+</body>
+</html>
