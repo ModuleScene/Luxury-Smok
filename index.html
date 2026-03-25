@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Luxury Vape Collection - Premium Vape Store</title>
-
-<!-- ===== FIREBASE SDK (Compat para vanilla JS) ===== -->
+<!-- ===== FIREBASE SDK ===== -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -107,6 +105,12 @@ background: linear-gradient(90deg, transparent, #d4af37, transparent);
 box-shadow: 0 0 20px #d4af37;
 margin: 2rem 0;
 }
+.section-title {
+text-align: center;
+margin: 3rem 0 2rem;
+color: #d4af37;
+font-size: 2rem;
+}
 .products-grid {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
@@ -177,6 +181,15 @@ border-radius: 25px;
 font-weight: bold;
 font-size: 0.8rem;
 z-index: 10;
+}
+.product-badge.luxury {
+background: linear-gradient(135deg, #ffd700, #ffed4e, #daa520);
+animation: shimmer 3s infinite linear;
+background-size: 200% auto;
+}
+@keyframes shimmer {
+0% { background-position: 0% center; }
+100% { background-position: 200% center; }
 }
 .product-info {
 padding: 1.2rem;
@@ -602,13 +615,6 @@ from { opacity: 0; transform: translateY(30px); }
 to { opacity: 1; transform: translateY(0); }
 }
 .product-card { animation: fadeIn 0.6s ease-out forwards; }
-.product-card:nth-child(1) { animation-delay: 0.1s; }
-.product-card:nth-child(2) { animation-delay: 0.2s; }
-.product-card:nth-child(3) { animation-delay: 0.3s; }
-.product-card:nth-child(4) { animation-delay: 0.4s; }
-.product-card:nth-child(5) { animation-delay: 0.5s; }
-.product-card:nth-child(6) { animation-delay: 0.6s; }
-.product-card:nth-child(7) { animation-delay: 0.7s; }
 @keyframes highlight {
 0%, 100% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
 50% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.8), 0 0 100px rgba(212, 175, 55, 0.4); }
@@ -677,6 +683,7 @@ footer { padding: 1.5rem 0.8rem; }
 <ul>
 <li><a href="#inicio">Inicio</a></li>
 <li><a href="#productos">Productos</a></li>
+<li><a href="#luxury">💎 Luxury</a></li>
 <li><a href="#nasty">Nasty</a></li>
 <li><a href="#oxbar">OXBAR</a></li>
 <li><a href="#voopoo">VOPOO</a></li>
@@ -710,8 +717,8 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">500mAh</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/LifePod/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/LifePod/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/LifePod/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/LifePod/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
@@ -732,8 +739,8 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">1100mAh</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/Oxbar/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/Oxbar/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/Oxbar/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/Oxbar/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
@@ -754,8 +761,8 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">24W Max</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/Voopo/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/Voopo/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/Voopo/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/Voopo/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
@@ -775,8 +782,8 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">600mAh</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/STLTH/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/STLTH/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/STLTH/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/STLTH/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
@@ -797,8 +804,8 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">500mAh</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/ClickMate/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/ClickMate/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/ClickMate/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/ClickMate/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
@@ -819,8 +826,8 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">Mesh Coil</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/Nastyfx10/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/Nastyfx10/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/Nastyfx10/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/Nastyfx10/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
@@ -838,16 +845,120 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <div class="product-specs">
 <span class="spec">15,000 Puffs</span>
 <span class="spec">20ml</span>
-<span class="spec">Display Digital</span>
+<span class="spec">Display</span>
 </div>
 <div class="product-actions">
-<a href="https://luxurysmok.github.io/NastyPX15K/" class="btn btn-primary" target="_blank">COMPRAR AHORA</a>
-<a href="https://luxurysmok.github.io/NastyPX15K/" class="btn btn-secondary" target="_blank">VER DETALLES</a>
+<a href="https://luxurysmok.github.io/NastyPX15K/" class="btn btn-primary" target="_blank">COMPRAR</a>
+<a href="https://luxurysmok.github.io/NastyPX15K/" class="btn btn-secondary" target="_blank">DETALLES</a>
 </div>
 </div>
 </div>
 </div>
+
 <div class="led-strip"></div>
+
+<!-- ===== SECCIÓN LUXURY VAPE ===== -->
+<h2 id="luxury" class="section-title">💎 EDICIÓN LUXURY</h2>
+<p style="text-align: center; color: #888; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+Dispositivos de alta gama para los vapers más exigentes. Tecnología premium y diseño exclusivo.
+</p>
+
+<div class="products-grid" id="luxury-grid">
+<!-- SKY SOLO -->
+<div class="product-card">
+<div class="product-badge luxury">💎 SKY</div>
+<div class="product-image">
+<img src="https://i.postimg.cc/rp2cqNhT/sky-solo.png"
+alt="Sky Solo" loading="lazy"
+onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>☁️</div>'">
+</div>
+<div class="product-info">
+<h3 class="product-name">SKY SOLO</h3>
+<p class="product-description">Dispositivo compacto y potente. Ideal para principiantes con batería de larga duración.</p>
+<div class="product-specs">
+<span class="spec">120W</span>
+<span class="spec">3000mAh</span>
+<span class="spec">Tank 5ml</span>
+</div>
+<div class="product-actions">
+<button class="btn btn-primary" onclick="addToCart('SKY SOLO', 189.00)">S/ 189.00</button>
+<a href="#comentarios" class="btn btn-secondary" onclick="selectProductForComment('SKY SOLO')">Opinar</a>
+</div>
+</div>
+</div>
+
+<!-- GEN NANO -->
+<div class="product-card">
+<div class="product-badge luxury">⚡ MINI</div>
+<div class="product-image">
+<img src="https://i.postimg.cc/6TzHFw1b/gen-nano.png"
+alt="Gen Nano" loading="lazy"
+onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>⚡</div>'">
+</div>
+<div class="product-info">
+<h3 class="product-name">GEN NANO</h3>
+<p class="product-description">Ultra compacto y ligero. Potencia increíble en el tamaño más pequeño del mercado.</p>
+<div class="product-specs">
+<span class="spec">50W</span>
+<span class="spec">1000mAh</span>
+<span class="spec">Ultra Light</span>
+</div>
+<div class="product-actions">
+<button class="btn btn-primary" onclick="addToCart('GEN NANO', 159.00)">S/ 159.00</button>
+<a href="#comentarios" class="btn btn-secondary" onclick="selectProductForComment('GEN NANO')">Opinar</a>
+</div>
+</div>
+</div>
+
+<!-- LUXE XR MAX -->
+<div class="product-card">
+<div class="product-badge luxury">💪 MAX</div>
+<div class="product-image">
+<img src="https://i.postimg.cc/Y9w1NZdk/luxe-xr-max.jpg"
+alt="Luxe XR Max" loading="lazy"
+onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>💪</div>'">
+</div>
+<div class="product-info">
+<h3 class="product-name">LUXE XR MAX</h3>
+<p class="product-description">Máxima potencia y autonomía. Sistema dual coil y batería de 5000mAh para todo el día.</p>
+<div class="product-specs">
+<span class="spec">80W</span>
+<span class="spec">5000mAh</span>
+<span class="spec">Dual Coil</span>
+</div>
+<div class="product-actions">
+<button class="btn btn-primary" onclick="addToCart('LUXE XR MAX', 219.00)">S/ 219.00</button>
+<a href="#comentarios" class="btn btn-secondary" onclick="selectProductForComment('LUXE XR MAX')">Opinar</a>
+</div>
+</div>
+</div>
+
+<!-- VOOPOO DRAG S2 -->
+<div class="product-card">
+<div class="product-badge luxury">🐉 DRAG</div>
+<div class="product-image">
+<img src="https://i.postimg.cc/k46g4gQC/DRAG-S2.png"
+alt="VOPOO DRAG S2" loading="lazy"
+onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>🐉</div>'">
+</div>
+<div class="product-info">
+<h3 class="product-name">VOPOO DRAG S2</h3>
+<p class="product-description">Chipset GENE.TT avanzado. Sabor intenso y vapor masivo con tecnología de punta.</p>
+<div class="product-specs">
+<span class="spec">60W</span>
+<span class="spec">2500mAh</span>
+<span class="spec">GENE.TT</span>
+</div>
+<div class="product-actions">
+<button class="btn btn-primary" onclick="addToCart('VOPOO DRAG S2', 199.00)">S/ 199.00</button>
+<a href="#comentarios" class="btn btn-secondary" onclick="selectProductForComment('VOPOO DRAG S2')">Opinar</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="led-strip"></div>
+
 <!-- ===== SECCIÓN DE COMENTARIOS ===== -->
 <section class="comments-section" id="comentarios">
 <div class="comments-header">
@@ -856,15 +967,13 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <div class="avg-rating">
 ★★★★★ <span id="avgRating">4.8</span>
 </div>
-<div class="total-comments" id="totalComments">12 opiniones</div>
+<div class="total-comments" id="totalComments">Cargando...</div>
 </div>
-<!-- Controles de admin -->
 <div class="admin-controls" id="adminControls">
 <button class="btn-admin" onclick="clearAllComments()">🗑️ Borrar Todo</button>
 <button class="btn-admin btn-logout" onclick="logoutAdmin()">🔓 Salir</button>
 </div>
 </div>
-<!-- Formulario para agregar comentario -->
 <div class="comment-form">
 <h3>✍️ Deja tu opinión</h3>
 <form id="newCommentForm">
@@ -884,6 +993,10 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <option value="CLICKMATE">CLICKMATE</option>
 <option value="Nasty FX10i">Nasty FX10i</option>
 <option value="Nasty PX15Ki">Nasty PX15Ki</option>
+<option value="SKY SOLO">SKY SOLO</option>
+<option value="GEN NANO">GEN NANO</option>
+<option value="LUXE XR MAX">LUXE XR MAX</option>
+<option value="VOPOO DRAG S2">VOPOO DRAG S2</option>
 </select>
 </div>
 </div>
@@ -904,7 +1017,6 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <button type="submit" class="submit-btn" id="submitBtn">Publicar Opinión</button>
 </form>
 </div>
-<!-- Lista de comentarios -->
 <div class="comments-list" id="commentsList">
 <div class="loading-comments">⏳ Cargando comentarios...</div>
 </div>
@@ -921,7 +1033,6 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <a href="#">📸 Instagram</a>
 </div>
 </footer>
-<!-- Modal de Login Admin -->
 <div class="admin-modal" id="adminModal">
 <div class="admin-modal-content">
 <h3>🔐 Acceso Admin</h3>
@@ -934,316 +1045,303 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-// 🔥 TU CONFIGURACIÓN DE FIREBASE (DATOS REALES)
+// 🔥 TU CONFIGURACIÓN DE FIREBASE
 // ═══════════════════════════════════════════════════════════════
 const firebaseConfig = {
-  apiKey: "AIzaSyCIj204sNi-UoXqjbv3kQP-IyJevyfciy0",
-  authDomain: "luxury-c06f0.firebaseapp.com",
-  projectId: "luxury-c06f0",
-  storageBucket: "luxury-c06f0.firebasestorage.app",
-  messagingSenderId: "593803186509",
-  appId: "1:593803186509:web:aff395fb86c52b8fa6e704"
+apiKey: "AIzaSyCIj204sNi-UoXqjbv3kQP-IyJevyfciy0",
+authDomain: "luxury-c06f0.firebaseapp.com",
+projectId: "luxury-c06f0",
+storageBucket: "luxury-c06f0.firebasestorage.app",
+messagingSenderId: "593803186509",
+appId: "1:593803186509:web:aff395fb86c52b8fa6e704"
 };
-// ═══════════════════════════════════════════════════════════════
 
-// Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const COMMENTS_COLLECTION = 'comments';
 
-// ===== CONFIGURACIÓN ADMIN =====
 const ADMIN_PASSWORD = 'admin123';
 const ADMIN_KEY = 'luxuryVapeAdmin';
 
-// Comentarios de ejemplo (solo si la BD está vacía)
 const defaultComments = [
-  {
-    name: "Carlos M.",
-    product: "OXBAR",
-    rating: 5,
-    comment: "¡Increíble dispositivo! Los sabores son intensos y la batería dura muchísimo.",
-    date: new Date().toISOString().split('T')[0]
-  },
-  {
-    name: "Andrea L.",
-    product: "LIFE POD ECO II",
-    rating: 5,
-    comment: "Me encanta que sea eco-friendly. El sabor Menthol es perfecto.",
-    date: new Date().toISOString().split('T')[0]
-  },
-  {
-    name: "Miguel R.",
-    product: "Nasty FX10i",
-    rating: 4,
-    comment: "Muy buen vape, compacto y potente.",
-    date: new Date().toISOString().split('T')[0]
-  }
+{
+name: "Carlos M.",
+product: "OXBAR",
+rating: 5,
+comment: "¡Increíble dispositivo! Los sabores son intensos y la batería dura muchísimo.",
+date: new Date().toISOString().split('T')[0]
+},
+{
+name: "Andrea L.",
+product: "SKY SOLO",
+rating: 5,
+comment: "Perfecto para empezar. Compacto y potente.",
+date: new Date().toISOString().split('T')[0]
+}
 ];
 
 let unsubscribeComments = null;
 let commentsData = [];
 
-// ===== FUNCIONES DE COMENTARIOS CON FIREBASE =====
 function generateStars(rating) {
-  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+return '★'.repeat(rating) + '☆'.repeat(5 - rating);
 }
 
 function formatDate(dateString) {
-  if (!dateString) return 'Reciente';
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('es-PE', options);
+if (!dateString) return 'Reciente';
+const options = { year: 'numeric', month: 'short', day: 'numeric' };
+return new Date(dateString).toLocaleDateString('es-PE', options);
 }
 
-// Listener en TIEMPO REAL de Firestore
 function listenToComments() {
-  const list = document.getElementById('commentsList');
-  
-  unsubscribeComments = db.collection(COMMENTS_COLLECTION)
-    .orderBy('createdAt', 'desc')
-    .onSnapshot((snapshot) => {
-      commentsData = [];
-      snapshot.forEach(doc => {
-        commentsData.push({ id: doc.id, ...doc.data() });
-      });
-      
-      // Si está vacío, insertar comentarios por defecto (solo una vez)
-      if (commentsData.length === 0 && snapshot.empty) {
-        seedDefaultComments();
-        return;
-      }
-      
-      renderComments(commentsData);
-    }, (error) => {
-      console.error("Error escuchando comentarios:", error);
-      list.innerHTML = '<div class="no-comments">⚠️ Error al cargar. Verifica Firebase.</div>';
-    });
+const list = document.getElementById('commentsList');
+
+unsubscribeComments = db.collection(COMMENTS_COLLECTION)
+.orderBy('createdAt', 'desc')
+.onSnapshot((snapshot) => {
+commentsData = [];
+snapshot.forEach(doc => {
+commentsData.push({ id: doc.id, ...doc.data() });
+});
+
+if (commentsData.length === 0 && snapshot.empty) {
+seedDefaultComments();
+return;
 }
 
-// Insertar comentarios por defecto si la BD está vacía
+renderComments(commentsData);
+}, (error) => {
+console.error("Error:", error);
+list.innerHTML = '<div class="no-comments">⚠️ Error al cargar</div>';
+});
+}
+
 async function seedDefaultComments() {
-  try {
-    const batch = db.batch();
-    defaultComments.forEach(comment => {
-      const docRef = db.collection(COMMENTS_COLLECTION).doc();
-      batch.set(docRef, {
-        ...comment,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    });
-    await batch.commit();
-  } catch (error) {
-    console.error("Error sembrando comentarios:", error);
-  }
+try {
+const batch = db.batch();
+defaultComments.forEach(comment => {
+const docRef = db.collection(COMMENTS_COLLECTION).doc();
+batch.set(docRef, {
+...comment,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+});
+await batch.commit();
+} catch (error) {
+console.error("Error:", error);
+}
 }
 
-// Renderizar comentarios
 function renderComments(comments) {
-  const list = document.getElementById('commentsList');
-  const totalEl = document.getElementById('totalComments');
-  const avgEl = document.getElementById('avgRating');
-  const isAdmin = localStorage.getItem(ADMIN_KEY) === 'true';
-  
-  if (comments.length === 0) {
-    list.innerHTML = '<div class="no-comments">📝 Sé el primero en dejar una opinión</div>';
-    totalEl.textContent = '0 opiniones';
-    avgEl.textContent = '0.0';
-    return;
-  }
-  
-  const avg = (comments.reduce((sum, c) => sum + (c.rating || 0), 0) / comments.length).toFixed(1);
-  avgEl.textContent = avg;
-  totalEl.textContent = `${comments.length} ${comments.length === 1 ? 'opinión' : 'opiniones'}`;
-  
-  list.innerHTML = comments.map(comment => `
-    <div class="comment-item ${isAdmin ? 'admin-mode' : ''}" data-id="${comment.id}">
-      <button class="delete-btn" onclick="deleteComment('${comment.id}')" title="Eliminar comentario">×</button>
-      <div class="comment-header">
-        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-        <div class="comment-user">
-          <div class="comment-user-name">${comment.name}</div>
-          <div class="comment-date">${formatDate(comment.date)}</div>
-        </div>
-        <div class="comment-rating">${generateStars(comment.rating)}</div>
-        <span class="comment-product">${comment.product}</span>
-      </div>
-      <p class="comment-text">${comment.comment}</p>
-    </div>
-  `).join('');
+const list = document.getElementById('commentsList');
+const totalEl = document.getElementById('totalComments');
+const avgEl = document.getElementById('avgRating');
+const isAdmin = localStorage.getItem(ADMIN_KEY) === 'true';
+
+if (comments.length === 0) {
+list.innerHTML = '<div class="no-comments">📝 Sé el primero en dejar una opinión</div>';
+totalEl.textContent = '0 opiniones';
+avgEl.textContent = '0.0';
+return;
 }
 
-// Agregar comentario a Firebase
+const avg = (comments.reduce((sum, c) => sum + (c.rating || 0), 0) / comments.length).toFixed(1);
+avgEl.textContent = avg;
+totalEl.textContent = `${comments.length} ${comments.length === 1 ? 'opinión' : 'opiniones'}`;
+
+list.innerHTML = comments.map(comment => `
+<div class="comment-item ${isAdmin ? 'admin-mode' : ''}" data-id="${comment.id}">
+<button class="delete-btn" onclick="deleteComment('${comment.id}')" title="Eliminar">×</button>
+<div class="comment-header">
+<div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+<div class="comment-user">
+<div class="comment-user-name">${comment.name}</div>
+<div class="comment-date">${formatDate(comment.date)}</div>
+</div>
+<div class="comment-rating">${generateStars(comment.rating)}</div>
+<span class="comment-product">${comment.product}</span>
+</div>
+<p class="comment-text">${comment.comment}</p>
+</div>
+`).join('');
+}
+
 async function addComment(name, product, rating, comment) {
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Publicando...';
-  
-  try {
-    await db.collection(COMMENTS_COLLECTION).add({
-      name: name,
-      product: product,
-      rating: parseInt(rating),
-      comment: comment,
-      date: new Date().toISOString().split('T')[0],
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    
-    document.getElementById('newCommentForm').reset();
-    alert('✅ ¡Gracias por tu opinión!');
-  } catch (error) {
-    console.error("Error agregando comentario:", error);
-    alert('❌ Error al publicar. Verifica Firebase.');
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Publicar Opinión';
-  }
+const submitBtn = document.getElementById('submitBtn');
+submitBtn.disabled = true;
+submitBtn.textContent = 'Publicando...';
+
+try {
+await db.collection(COMMENTS_COLLECTION).add({
+name: name,
+product: product,
+rating: parseInt(rating),
+comment: comment,
+date: new Date().toISOString().split('T')[0],
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+
+document.getElementById('newCommentForm').reset();
+alert('✅ ¡Gracias por tu opinión!');
+} catch (error) {
+console.error("Error:", error);
+alert('❌ Error al publicar');
+} finally {
+submitBtn.disabled = false;
+submitBtn.textContent = 'Publicar Opinión';
+}
 }
 
-// Eliminar comentario de Firebase
 async function deleteComment(id) {
-  if (!confirm('¿Estás seguro de eliminar este comentario?')) return;
-  
-  try {
-    await db.collection(COMMENTS_COLLECTION).doc(id).delete();
-  } catch (error) {
-    console.error("Error eliminando comentario:", error);
-    alert('❌ Error al eliminar. Verifica las reglas de Firebase.');
-  }
+if (!confirm('¿Estás seguro de eliminar este comentario?')) return;
+
+try {
+await db.collection(COMMENTS_COLLECTION).doc(id).delete();
+} catch (error) {
+console.error("Error:", error);
+alert('❌ Error al eliminar');
+}
 }
 
-// Borrar todos los comentarios
 async function clearAllComments() {
-  if (!confirm('⚠️ ¿ESTÁS SEGURO de BORRAR TODOS los comentarios?')) return;
-  
-  try {
-    const snapshot = await db.collection(COMMENTS_COLLECTION).get();
-    const batch = db.batch();
-    snapshot.forEach(doc => {
-      batch.delete(doc.ref);
-    });
-    await batch.commit();
-    alert('✅ Todos los comentarios han sido eliminados');
-  } catch (error) {
-    console.error("Error borrando todos:", error);
-    alert('❌ Error al borrar. Verifica las reglas de Firebase.');
-  }
+if (!confirm('⚠️ ¿ESTÁS SEGURO de BORRAR TODOS los comentarios?')) return;
+
+try {
+const snapshot = await db.collection(COMMENTS_COLLECTION).get();
+const batch = db.batch();
+snapshot.forEach(doc => {
+batch.delete(doc.ref);
+});
+await batch.commit();
+alert('✅ Todos los comentarios eliminados');
+} catch (error) {
+console.error("Error:", error);
+alert('❌ Error al borrar');
+}
 }
 
-// ===== FUNCIONES DE ADMIN =====
 function isAdmin() {
-  return localStorage.getItem(ADMIN_KEY) === 'true';
+return localStorage.getItem(ADMIN_KEY) === 'true';
 }
 
 function openAdminModal() {
-  document.getElementById('adminModal').classList.add('active');
-  document.getElementById('adminPassword').focus();
+document.getElementById('adminModal').classList.add('active');
+document.getElementById('adminPassword').focus();
 }
 
 function closeAdminModal() {
-  document.getElementById('adminModal').classList.remove('active');
-  document.getElementById('adminPassword').value = '';
+document.getElementById('adminModal').classList.remove('active');
+document.getElementById('adminPassword').value = '';
 }
 
 function checkAdmin() {
-  const password = document.getElementById('adminPassword').value;
-  if (password === ADMIN_PASSWORD) {
-    localStorage.setItem(ADMIN_KEY, 'true');
-    closeAdminModal();
-    enableAdminMode();
-    alert('✅ ¡Bienvenido, Admin!');
-  } else {
-    alert('❌ Contraseña incorrecta');
-    document.getElementById('adminPassword').value = '';
-  }
+const password = document.getElementById('adminPassword').value;
+if (password === ADMIN_PASSWORD) {
+localStorage.setItem(ADMIN_KEY, 'true');
+closeAdminModal();
+enableAdminMode();
+alert('✅ ¡Bienvenido, Admin!');
+} else {
+alert('❌ Contraseña incorrecta');
+document.getElementById('adminPassword').value = '';
+}
 }
 
 function enableAdminMode() {
-  document.getElementById('adminIndicator').classList.add('active');
-  document.getElementById('adminControls').classList.add('active');
-  renderComments(commentsData);
+document.getElementById('adminIndicator').classList.add('active');
+document.getElementById('adminControls').classList.add('active');
+renderComments(commentsData);
 }
 
 function logoutAdmin() {
-  localStorage.removeItem(ADMIN_KEY);
-  document.getElementById('adminIndicator').classList.remove('active');
-  document.getElementById('adminControls').classList.remove('active');
-  renderComments(commentsData);
-  alert('🔓 Has cerrado sesión de Admin');
+localStorage.removeItem(ADMIN_KEY);
+document.getElementById('adminIndicator').classList.remove('active');
+document.getElementById('adminControls').classList.remove('active');
+renderComments(commentsData);
+alert('🔓 Sesión cerrada');
 }
 
-// Acceso rápido: clic 5 veces en el logo
+function selectProductForComment(productName) {
+const select = document.getElementById('userProduct');
+select.value = productName;
+document.querySelector('.comment-form')?.scrollIntoView({
+behavior: 'smooth',
+block: 'center'
+});
+select.style.borderColor = '#d4af37';
+setTimeout(() => { select.style.borderColor = '#444'; }, 2000);
+}
+
+function addToCart(productName, price) {
+alert(`✅ ${productName}\n💰 Precio: S/ ${price.toFixed(2)}\n\n📦 Producto agregado`);
+}
+
 let logoClicks = 0;
 let logoClickTimer;
 document.getElementById('logo').addEventListener('click', function() {
-  logoClicks++;
-  clearTimeout(logoClickTimer);
-  logoClickTimer = setTimeout(() => { logoClicks = 0; }, 1000);
-  if (logoClicks >= 5) {
-    logoClicks = 0;
-    if (isAdmin()) {
-      logoutAdmin();
-    } else {
-      openAdminModal();
-    }
-  }
-});
-
-// Acceso por URL: ?admin=true
-if (new URLSearchParams(window.location.search).get('admin') === 'true') {
-  if (isAdmin()) {
-    enableAdminMode();
-  } else {
-    openAdminModal();
-  }
-}
-
-// Inicializar admin si ya está logueado
+logoClicks++;
+clearTimeout(logoClickTimer);
+logoClickTimer = setTimeout(() => { logoClicks = 0; }, 1000);
+if (logoClicks >= 5) {
+logoClicks = 0;
 if (isAdmin()) {
-  enableAdminMode();
+logoutAdmin();
+} else {
+openAdminModal();
+}
+}
+});
+
+if (new URLSearchParams(window.location.search).get('admin') === 'true') {
+if (isAdmin()) {
+enableAdminMode();
+} else {
+openAdminModal();
+}
 }
 
-// ===== EVENT LISTENERS =====
+if (isAdmin()) {
+enableAdminMode();
+}
+
 document.getElementById('newCommentForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const name = document.getElementById('userName').value.trim();
-  const product = document.getElementById('userProduct').value;
-  const rating = document.querySelector('input[name="rating"]:checked')?.value;
-  const comment = document.getElementById('userComment').value.trim();
-  
-  if (!name || !product || !rating || !comment) {
-    alert('Por favor, completa todos los campos');
-    return;
-  }
-  
-  addComment(name, product, rating, comment);
+e.preventDefault();
+const name = document.getElementById('userName').value.trim();
+const product = document.getElementById('userProduct').value;
+const rating = document.querySelector('input[name="rating"]:checked')?.value;
+const comment = document.getElementById('userComment').value.trim();
+
+if (!name || !product || !rating || !comment) {
+alert('Por favor, completa todos los campos');
+return;
+}
+
+addComment(name, product, rating, comment);
 });
 
-// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href');
-    const target = document.querySelector(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const target = document.querySelector(targetId);
+if (target) {
+target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+});
 });
 
-// Cerrar modal al hacer clic fuera
 document.getElementById('adminModal').addEventListener('click', function(e) {
-  if (e.target === this) closeAdminModal();
+if (e.target === this) closeAdminModal();
 });
 
-// ===== INICIALIZAR =====
 document.addEventListener('DOMContentLoaded', () => {
-  listenToComments();
+listenToComments();
 });
 
-// Limpiar listener al cerrar la página
 window.addEventListener('beforeunload', () => {
-  if (unsubscribeComments) {
-    unsubscribeComments();
-  }
+if (unsubscribeComments) {
+unsubscribeComments();
+}
 });
 </script>
 </body>
