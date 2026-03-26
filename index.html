@@ -90,6 +90,92 @@ max-width: 1400px;
 margin: 0 auto;
 padding: 3rem 2rem;
 }
+
+/* ===== SOCIAL BAR - LIKES Y VISITAS ===== */
+.social-bar {
+position: fixed;
+bottom: 20px;
+left: 20px;
+display: flex;
+gap: 12px;
+z-index: 9999;
+}
+.social-card {
+background: linear-gradient(135deg, rgba(30,30,30,0.95), rgba(20,20,20,0.98));
+border: 2px solid rgba(212, 175, 55, 0.3);
+border-radius: 12px;
+padding: 10px 16px;
+display: flex;
+align-items: center;
+gap: 8px;
+transition: all 0.3s ease;
+box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+animation: slideInLeft 0.5s ease;
+}
+@keyframes slideInLeft {
+from { opacity: 0; transform: translateX(-50px); }
+to { opacity: 1; transform: translateX(0); }
+}
+.social-card:hover {
+border-color: #d4af37;
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+.social-icon {
+font-size: 20px;
+filter: drop-shadow(0 0 10px rgba(212,175,55,0.5));
+}
+.social-content {
+display: flex;
+flex-direction: column;
+}
+.social-label {
+font-size: 9px;
+color: #888;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+.social-count {
+font-family: 'Segoe UI', sans-serif;
+font-size: 16px;
+font-weight: 700;
+color: #d4af37;
+}
+.btn-like {
+background: linear-gradient(135deg, #e74c3c, #c0392b);
+border: none;
+border-radius: 10px;
+padding: 10px 16px;
+color: white;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 6px;
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+.btn-like:hover {
+transform: scale(1.05);
+box-shadow: 0 5px 20px rgba(231,76,60,0.5);
+}
+.btn-like.liked {
+background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+.btn-like:active {
+transform: scale(0.95);
+}
+.like-animation {
+animation: likePop 0.4s ease;
+}
+@keyframes likePop {
+0% { transform: scale(1); }
+50% { transform: scale(1.3); }
+100% { transform: scale(1); }
+}
+
 .stats {
 text-align: center;
 margin-bottom: 3rem;
@@ -657,6 +743,19 @@ footer { padding: 1.5rem 0.8rem; }
 .footer-text { font-size: 0.85rem; }
 .social-links { gap: 1.2rem; }
 .social-links a { font-size: 1.3rem; }
+/* Social bar responsive */
+.social-bar {
+bottom: 15px;
+left: 15px;
+flex-direction: column;
+gap: 8px;
+}
+.social-card {
+padding: 8px 12px;
+}
+.social-icon { font-size: 18px; }
+.social-count { font-size: 14px; }
+.btn-like { padding: 8px 14px; font-size: 10px; }
 }
 @media (max-width: 480px) {
 .product-image { height: 170px; }
@@ -691,6 +790,28 @@ footer { padding: 1.5rem 0.8rem; }
 <li><a href="#comentarios">Opiniones</a></li>
 </ul>
 </nav>
+
+<!-- ===== SOCIAL BAR - LIKES Y VISITAS ===== -->
+<div class="social-bar">
+<div class="social-card">
+<span class="social-icon">👁️</span>
+<div class="social-content">
+<span class="social-label">Visitas</span>
+<span class="social-count" id="visitCount">0</span>
+</div>
+</div>
+<div class="social-card">
+<span class="social-icon">❤️</span>
+<div class="social-content">
+<span class="social-label">Likes</span>
+<span class="social-count" id="likeCount">0</span>
+</div>
+</div>
+<button class="btn-like" id="btnLike" onclick="darLike()">
+<span>❤️</span> <span id="likeBtnText">Dar Like</span>
+</button>
+</div>
+
 <div class="container">
 <div class="stats">
 <span class="stats-number">🔥 2,847 Likes</span>
@@ -881,7 +1002,7 @@ onerror="this.parentElement.innerHTML='<div class=\'product-image-placeholder\'>
 <span class="spec">Tank 3.5ml</span>
 </div>
 <div class="product-actions">
-<button class="btn btn-primary" onclick="addToCart('SKY SOLO', 189.00)">S/ 179.99.00</button>
+<button class="btn btn-primary" onclick="addToCart('SKY SOLO', 189.00)">S/ 179.99</button>
 <a href="#comentarios" class="btn btn-secondary" onclick="selectProductForComment('SKY SOLO')">Opinar</a>
 </div>
 </div>
@@ -1060,6 +1181,10 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const COMMENTS_COLLECTION = 'comments';
 
+// ===== REFERENCIAS PARA LIKES Y VISITAS =====
+const visitasRef = db.collection('estadisticas').doc('visitas');
+const likesRef = db.collection('estadisticas').doc('likes');
+
 const ADMIN_PASSWORD = 'admin123';
 const ADMIN_KEY = 'luxuryVapeAdmin';
 
@@ -1083,6 +1208,107 @@ date: new Date().toISOString().split('T')[0]
 let unsubscribeComments = null;
 let commentsData = [];
 
+// ===== SISTEMA DE VISITAS Y LIKES =====
+let yaDioLike = localStorage.getItem('yaDioLike') === 'true';
+
+// Incrementar visitas al cargar la página
+function incrementarVisitas() {
+visitasRef.update({
+count: firebase.firestore.FieldValue.increment(1)
+}).catch(() => {
+// Si el documento no existe, créalo
+visitasRef.set({ count: 1 });
+});
+}
+
+// Escuchar cambios en visitas en tiempo real
+visitasRef.onSnapshot(snapshot => {
+const data = snapshot.data();
+const count = data ? data.count : 0;
+document.getElementById('visitCount').textContent = count.toLocaleString();
+});
+
+// Escuchar cambios en likes en tiempo real
+likesRef.onSnapshot(snapshot => {
+const data = snapshot.data();
+const count = data ? data.count : 0;
+document.getElementById('likeCount').textContent = count.toLocaleString();
+});
+
+// Función para dar like
+function darLike() {
+if (yaDioLike) {
+alert('¡Ya diste like! Gracias por tu apoyo ❤️');
+return;
+}
+
+const btn = document.getElementById('btnLike');
+const btnText = document.getElementById('likeBtnText');
+
+// Animación del botón
+btn.classList.add('like-animation');
+btn.classList.add('liked');
+btnText.textContent = '¡Gracias!';
+
+// Incrementar like en Firebase
+likesRef.update({
+count: firebase.firestore.FieldValue.increment(1)
+}).catch(() => {
+// Si el documento no existe, créalo
+likesRef.set({ count: 1 });
+});
+
+// Guardar en localStorage que ya dio like
+yaDioLike = true;
+localStorage.setItem('yaDioLike', 'true');
+
+// Efecto de confeti
+crearConfeti();
+
+setTimeout(() => {
+btn.classList.remove('like-animation');
+btnText.textContent = 'Like Dado ❤️';
+btn.disabled = true;
+}, 1000);
+}
+
+// Efecto de confeti simple
+function crearConfeti() {
+const colors = ['#d4af37', '#e74c3c', '#2ecc71', '#3498db', '#f4d03f'];
+for (let i = 0; i < 30; i++) {
+const confeti = document.createElement('div');
+confeti.style.cssText = `
+position: fixed;
+width: 10px;
+height: 10px;
+background: ${colors[Math.floor(Math.random() * colors.length)]};
+left: ${Math.random() * 100}vw;
+top: -10px;
+z-index: 99999;
+animation: fall ${2 + Math.random() * 2}s linear forwards;
+pointer-events: none;
+`;
+document.body.appendChild(confeti);
+setTimeout(() => confeti.remove(), 4000);
+}
+}
+
+// Agregar animación de caída al CSS dinámicamente
+if (!document.getElementById('confeti-style')) {
+const style = document.createElement('style');
+style.id = 'confeti-style';
+style.textContent = `
+@keyframes fall {
+to {
+transform: translateY(100vh) rotate(720deg);
+opacity: 0;
+}
+}
+`;
+document.head.appendChild(style);
+}
+
+// ===== FUNCIONES DE COMENTARIOS CON FIREBASE =====
 function generateStars(rating) {
 return '★'.repeat(rating) + '☆'.repeat(5 - rating);
 }
@@ -1220,6 +1446,7 @@ alert('❌ Error al borrar');
 }
 }
 
+// ===== FUNCIONES DE ADMIN =====
 function isAdmin() {
 return localStorage.getItem(ADMIN_KEY) === 'true';
 }
@@ -1276,6 +1503,7 @@ function addToCart(productName, price) {
 alert(`✅ ${productName}\n💰 Precio: S/ ${price.toFixed(2)}\n\n📦 Producto agregado`);
 }
 
+// ===== EVENT LISTENERS =====
 let logoClicks = 0;
 let logoClickTimer;
 document.getElementById('logo').addEventListener('click', function() {
@@ -1334,10 +1562,24 @@ document.getElementById('adminModal').addEventListener('click', function(e) {
 if (e.target === this) closeAdminModal();
 });
 
+// ===== INICIALIZAR =====
 document.addEventListener('DOMContentLoaded', () => {
+// Incrementar visitas al cargar
+incrementarVisitas();
+
+// Actualizar estado del botón de like
+const btn = document.getElementById('btnLike');
+const btnText = document.getElementById('likeBtnText');
+if (yaDioLike) {
+btn.classList.add('liked');
+btnText.textContent = 'Like Dado ❤️';
+btn.disabled = true;
+}
+
 listenToComments();
 });
 
+// Limpiar listener al cerrar la página
 window.addEventListener('beforeunload', () => {
 if (unsubscribeComments) {
 unsubscribeComments();
